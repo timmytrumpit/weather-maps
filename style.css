@@ -131,7 +131,7 @@ ul {
   overflow-x: auto;
   white-space: nowrap;
   margin: 10px 0;
-  height: 25px;
+  height: 35px;
 }
 
 #nav li{
@@ -192,11 +192,15 @@ ul {
   display: none;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 ::-webkit-scrollbar {
-  height: 2px;
+  height: 15px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #121;
-  width: 12.5%;
+  height: 25px;
+  border-top: 2px solid #121;
 }

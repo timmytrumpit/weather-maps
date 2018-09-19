@@ -1,19 +1,24 @@
 
 //location = canberra
-var cbr = '-35.184708, 149.132538';
+var liveLocation = '-35.184708, 149.132538';
 
 var urlOriginal = 'https://api.darksky.net/forecast/' + key + '/37.8267,-122.4233';
 
 //this is the dark sky api call
-var url = 'https://api.darksky.net/forecast/' + key + '/' + cbr + '?units=auto';
-
-//get geoloaction
-var liveLocation = '';
+var url = 'https://api.darksky.net/forecast/' + key + '/' + liveLocation + '?units=auto&callback=?';
 
 var globalLat = '';
 var globalLng = '';
 
-var newLocation = '';
+var row = $('.list');
+
+function replaceForecast() {
+
+  console.log(row)
+  row.html('');
+  console.log(row)
+
+}
 
 function initMap() {
   var styledMapType = new google.maps.StyledMapType([
@@ -133,13 +138,13 @@ function getUserLocation() {
         // finding coordinates
         var crd = pos.coords;
 
-        // forammtted to be used to retireve api with geolocation
-        liveLocation = crd.latitude + ',' + crd.longitude;
+
 
         globalLat = crd.latitude
         globalLng = crd.longitude
 
-        newLocation = globalLat + ',' + globalLng;
+        // forammtted to be used to retireve api with geolocation
+        liveLocation = globalLat + ',' + globalLng;
 
         // $('.city').click(function quicklink() {
         //
@@ -172,8 +177,11 @@ function getUserLocation() {
               globalLat = cityCoord[e.target.id].lat;
               globalLng = cityCoord[e.target.id].lng;
 
-              console.log('yippee')
-              getWeatherData(newLocation);
+              replaceForecast()
+
+              var newWeatherLoca = globalLat + ',' + globalLng;
+              url = 'https://api.darksky.net/forecast/' + key + '/' + newWeatherLoca + '?units=auto';
+              getWeatherData(newWeatherLoca);
               initMap();
 
 
@@ -184,112 +192,7 @@ function getUserLocation() {
         //get api with new location
         getWeatherData(liveLocation);
 
-        // Custom Map styles JSON from https://snazzymaps.com/editor/customize/6857
-        // var styledMapType = new google.maps.StyledMapType([
-        //      {
-        //          "featureType": "administrative",
-        //          "elementType": "labels.text.fill",
-        //          "stylers": [
-        //              {
-        //                  "color": "#444444"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "landscape",
-        //          "elementType": "all",
-        //          "stylers": [
-        //              {
-        //                  "color": "#f2f2f2"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "poi",
-        //          "elementType": "all",
-        //          "stylers": [
-        //              {
-        //                  "visibility": "off"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "road",
-        //          "elementType": "all",
-        //          "stylers": [
-        //              {
-        //                  "saturation": -100
-        //              },
-        //              {
-        //                  "lightness": 45
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "road.highway",
-        //          "elementType": "all",
-        //          "stylers": [
-        //              {
-        //                  "visibility": "simplified"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "road.highway",
-        //          "elementType": "geometry.fill",
-        //          "stylers": [
-        //              {
-        //                  "color": "#ffffff"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "road.arterial",
-        //          "elementType": "labels.icon",
-        //          "stylers": [
-        //              {
-        //                  "visibility": "off"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "transit",
-        //          "elementType": "all",
-        //          "stylers": [
-        //              {
-        //                  "visibility": "off"
-        //              }
-        //          ]
-        //      },
-        //      {
-        //          "featureType": "water",
-        //          "elementType": "all",
-        //          "stylers": [
-        //              {
-        //                  "color": "#dde6e8"
-        //              },
-        //              {
-        //                  "visibility": "on"
-        //              }
-        //          ]
-        //      }
-        //  ],
-        //   {name: 'Weather Maps'});
-
-        // defining map options to be displayed
-      //  var map = new google.maps.Map(document.getElementById('map'), {
-      //        center: { lat:globalLat, lng:globalLng },
-      //        zoom: 11,
-      //        disableDefaultUI: true,
-      //        mapTypeControlOptions: {
-      //        mapTypeIds: ['styled_map']
-      //       }
-      //      });
-      //
-      //      // displaying map
-      //       map.mapTypes.set('styled_map', styledMapType);
-      //       map.setMapTypeId('styled_map');
-      initMap()
+        initMap()
 }
 
 
@@ -298,7 +201,7 @@ function getUserLocation() {
         console.warn('ERROR (' + err.code + '):' + err.message)
 
         //call api with canberra as back up
-        getWeatherData(cbr);
+        getWeatherData(liveLocation);
 
       }
 
@@ -314,14 +217,14 @@ function getUserLocation() {
 
 
 // function which retrieves data
-function getWeatherData(currentLocation){
+function getWeatherData(liveLocation){
 
   //now go get data
-  $.get(url, function(data) {
+  $.getJSON(url, function(data) {
     console.log(data);
 
       //define the icon
-      var icon = data.currently.icon
+      var icon = data.currently.icon;
 
       //formatting icon image to html
       var iconImage = '<img src="images/' + icon + '.svg" alt="' + icon + '" class="img"/>';
@@ -333,7 +236,7 @@ function getWeatherData(currentLocation){
       var currently = $('<h1>').html(iconImage + ' ' + Math.round(currentTemp) + '&deg');
 
       //append to body
-      $('.currently').append(currently);
+      $('.currently').html(currently);
 
       //looping through data, adding to forecast
       for (var i = 1; i < data.daily.data.length; i++) {
@@ -341,7 +244,8 @@ function getWeatherData(currentLocation){
         var forecast = data.daily.data[i]; //data for one day
 
       // target ul with the class .list
-      var row = $('.list');
+
+
 
       // display correct day according to forecast data from Dark Sky
       var day = new Date(forecast.time*1000);
@@ -361,13 +265,15 @@ function getWeatherData(currentLocation){
 
       var dailyIconImage = '<img src="images/' + dailyIcon + '.svg" alt="' + dailyIcon + '" class="img"/>'
 
+
       // appending list items to the class .list
       row.append("<li>" + dailyIconImage + ' ' + Math.round(forecast.temperatureMax) + '&deg' + ' ' + "<span>" + weekday[day.getDay()] + "</span>" + "</li>");
 
       // append forecast
-      $('.forecast').append(row);
+
 
     }
+        $('.forecast').html(row);
 
       // See forecast from drop down action
         $( ".dropdown" ).click(function expandDataDisplay() {
