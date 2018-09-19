@@ -20,6 +20,48 @@ function replaceForecast() {
 
 }
 
+// define coordinates for major australian cities
+function getNav() {
+  console.log('woop')
+
+  var cityCoord = [
+                    { city: "My Location", lat: globalLat, lng: globalLng },
+                    { city: "canberra", lat: -35.184708, lng: 149.132538 },
+                    { city: "sydney", lat: -33.8688, lng: 151.2093 },
+                    { city: "brisbane", lat: -27.4698, lng: 153.0251 },
+                    { city: "darwin", lat: -12.4634, lng: 130.8456 },
+                    { city: "perth", lat: -31.9505, lng: 115.8605 },
+                    { city: "adelaide", lat: -34.9285, lng: 138.6007 },
+                    { city: "hobart", lat: -42.8821, lng: 147.3272 },
+                    { city: "melbourne", lat: -37.8136, lng: 144.9631}
+                  ];
+
+  for (var i = 0; i < 9; i++) {
+
+    var row = $('.cities');
+    row.append("<li id='"+ i +"' class='cityOption'>" + cityCoord[i].city + "</li>");
+  }
+
+  $('.cityOption').click(function changeLocation(e) {
+
+    var changeLocation = cityCoord[e.target.id];
+
+    globalLat = cityCoord[e.target.id].lat;
+    globalLng = cityCoord[e.target.id].lng;
+
+    replaceForecast()
+
+    var newWeatherLoca = globalLat + ',' + globalLng;
+    url = 'https://api.darksky.net/forecast/' + key + '/' + newWeatherLoca + '?units=auto';
+    getWeatherData(newWeatherLoca);
+    initMap();
+
+
+    // disable loader after map loads
+    $( "#loader" ).hide();
+  });
+};
+
 function initMap() {
   var styledMapType = new google.maps.StyledMapType([
        {
@@ -146,53 +188,12 @@ function getUserLocation() {
         // forammtted to be used to retireve api with geolocation
         liveLocation = globalLat + ',' + globalLng;
 
-        // $('.city').click(function quicklink() {
-        //
-
-
-          // define coordinates for major australian cities
-            var cityCoord = [
-                              { city: "My Location", lat: crd.latitude, lng: crd.longitude },
-                              { city: "canberra", lat: -35.184708, lng: 149.132538 },
-                              { city: "sydney", lat: -33.8688, lng: 151.2093 },
-                              { city: "brisbane", lat: -27.4698, lng: 153.0251 },
-                              { city: "darwin", lat: -12.4634, lng: 130.8456 },
-                              { city: "perth", lat: -31.9505, lng: 115.8605 },
-                              { city: "adelaide", lat: -34.9285, lng: 138.6007 },
-                              { city: "hobart", lat: -42.8821, lng: 147.3272 },
-                              { city: "melbourne", lat: -37.8136, lng: 144.9631}
-                            ];
-
-            for (var i = 0; i < 9; i++) {
-
-              var row = $('.cities');
-              row.append("<li id='"+ i +"' class='cityOption'>" + cityCoord[i].city + "</li>");
-
-            };
-
-            $('.cityOption').click(function changeLocation(e) {
-
-              var changeLocation = cityCoord[e.target.id];
-
-              globalLat = cityCoord[e.target.id].lat;
-              globalLng = cityCoord[e.target.id].lng;
-
-              replaceForecast()
-
-              var newWeatherLoca = globalLat + ',' + globalLng;
-              url = 'https://api.darksky.net/forecast/' + key + '/' + newWeatherLoca + '?units=auto';
-              getWeatherData(newWeatherLoca);
-              initMap();
-
-
-              // disable loader after map loads
-              $( "#loader" ).hide();
-            });
-
         //get api with new location
+        getNav();
+
         getWeatherData(liveLocation);
 
-        initMap()
+        initMap();
 }
 
 
@@ -200,8 +201,16 @@ function getUserLocation() {
       function error(err) {
         console.warn('ERROR (' + err.code + '):' + err.message)
 
+        globalLat = -35.184708
+        globalLng = 149.132538
+
+
         //call api with canberra as back up
         getWeatherData(liveLocation);
+
+        initMap()
+
+        getNav()
 
       }
 
