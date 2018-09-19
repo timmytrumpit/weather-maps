@@ -1,0 +1,202 @@
+/* CSS files add styling rules to your content */
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+/* my styling */
+
+body {
+  font-family: "Benton Sans", "Helvetica Neue", helvetica, arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #eee;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: normal;
+  color: #121;
+  font-size: 42px;
+  padding: 35px 25%;
+  text-align: center;
+}
+
+/* Data Display Styling */
+ul {
+  list-style: none;
+  height: 100%;
+  padding: 0;
+}
+
+#background {
+  height: 100vh;
+}
+
+#loader {
+   width: 100%;
+   height: 100%;
+   position: fixed;
+   display: block;
+   background-color: #fff;
+   z-index: 99;
+}
+
+#loader .lottie{
+  height: 100%;
+  position: absolute;
+  margin: 15% 40%;
+  z-index: 1000;
+}
+
+#map {
+    height: 100%;
+  }
+
+/* positioning data display */
+#weather {
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  height: 150px;
+  width: 250px;
+  background-color: #fff;
+  transition: 0.3s ease-out;
+  overflow-y: hidden;
+  box-shadow: 3px 6px 16px rgba(0,0,0,0.05);
+}
+
+/* Data Display Content Container */
+#weather .container {
+  padding: 10px;
+}
+
+#weather .currently img{
+  width: 36px;
+  height: auto;
+}
+
+#nav{
+  font-size: 12px;
+  color: #121;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin: 10px 0;
+  height: 25px;
+}
+
+#nav li{
+  display: inline;
+  padding: 10px 5px;;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#weather .dropdown {
+  background-color: #fcfcfc;
+  position: absolute;
+  width: 100%;
+  height: auto;
+  bottom: 0;
+}
+
+#weather .dropdown:hover {
+  cursor: pointer;
+}
+
+#weather .dropdown .arrow {
+  height: 7px;
+  width: auto;
+  margin: 10px 45% 5px 45%;
+}
+
+#weather .container .list {
+  height: 100%;
+  width: auto;
+  margin: 0;
+  padding: 0 12%;
+  margin: 30px 0;
+}
+
+#weather .container .list li {
+  height: 14%;
+  padding: 10px 0px;
+  margin: 0;
+  text-align: left;
+  box-sizing: none;
+}
+
+#weather .container .list span {
+  margin-left: 30px;
+}
+
+.expand {
+  height: 80% !important;
+  transition: 0.3s ease-out;
+}
+
+.expand .dropdown .arrow {
+  transform: rotate(180deg);
+}
+
+.hidden {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  height: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #121;
+  width: 12.5%;
+}

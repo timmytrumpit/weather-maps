@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Weather Maps</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+
+    <!-- import the webpage's javascript file -->
+    <script src="keys.js" defer></script>
+    <script src="script.js" defer></script>
+
+  </head>
+  <body>
+    <div id="background">
+      <div id="loader">
+        <iframe class="lottie" src="https://lottiefiles.com/iframe/295-refresh" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div id="map"></div>
+      <div id="weather">
+        <div class="container">
+          <div class="currently">
+          </div>
+          <div id="nav">
+            <ul class="cities">
+            </ul>
+          </div>
+          <div class="forecast">
+            <ul class="list">
+            </ul>
+          </div>
+        </div>
+        <div class="dropdown">
+          <img src="images/down-arrow.svg" alt="down arrow" class="arrow"/>
+        </div>
+      </div>
+
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQIYhE1X95IdCzO1bWw1pM8g-WAPJJ3K0"
+    async defer></script>
+
+  </body>
+</html>
