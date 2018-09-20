@@ -284,22 +284,22 @@ function getWeatherData(liveLocation){
     }
         $('.forecast').html(row);
 
-      // See forecast from drop down action
-        $( ".dropdown" ).click(function expandDataDisplay() {
-
-          // dynamic styling for the toggled states of .forecast
-          $( ".forecast").toggleClass( "forecast" )
-
-          // dynamic styling for the toggled states of #weather
-          $( "#weather" ).toggleClass( "expand" )
-
-          // $( "#nav" ).toggleClass( "active" )
-
-        });
-
         // disable loader after map loads
         $( "#loader" ).hide();
   });
+
+  // See forecast from drop down action
+    $( ".dropdown" ).click(function expandDataDisplay() {
+
+      // dynamic styling for the toggled states of .forecast
+      $( ".forecast").toggleClass( "forecast" )
+
+      // dynamic styling for the toggled states of #weather
+      $( "#weather" ).toggleClass( "expand" )
+
+      // $( "#nav" ).toggleClass( "active" )
+
+    });
 
 };
 
