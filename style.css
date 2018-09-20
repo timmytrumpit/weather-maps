@@ -161,7 +161,7 @@ ul {
 #weather .dropdown .arrow {
   height: 7px;
   width: auto;
-  margin: 10px 47% 5px 47%;
+  margin: 10px 46% 5px 46%;
 }
 
 #weather .container .list {
@@ -216,6 +216,7 @@ ul {
     top: 0;
     right: 0;
     height: 115px;
+    width: 200px;
   }
 
   #weather h1 {
@@ -228,8 +229,18 @@ ul {
     height: auto;
   }
 
+  #weather .container .list span {
+    margin-left: 10px;
+  }
+
   #weather .container .list li {
     padding: 5px 0;
+    font-size: 12px;
+  }
+
+  #weather .container .list img {
+    width: 20px;
+    height: auto;
   }
 
   #nav {
