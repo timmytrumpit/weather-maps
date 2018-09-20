@@ -15,11 +15,14 @@ var urlOriginal = 'https://api.darksky.net/forecast/' + key + '/37.8267,-122.423
 //this is the dark sky api call
 var url = 'https://api.darksky.net/forecast/' + key + '/' + liveLocation + '?units=auto&callback=?';
 
+// defining empty vars to be redefined later
 var globalLat = '';
 var globalLng = '';
 
+// a class for data to be added to
 var row = $('.list');
 
+// function to ensure that data is replaced when switching locations, not appended.
 function replaceForecast() {
 
   row.html('');
@@ -41,14 +44,18 @@ function getNav() {
                     { city: "melbourne", lat: -37.8136, lng: 144.9631}
                   ];
 
+  // for loop to loop through the array of objects above
   for (var i = 0; i < 9; i++) {
 
+    // appending the information to a class named 'cities'
     var row = $('.cities');
     row.append("<li id='"+ i +"' class='cityOption'>" + cityCoord[i].city + "</li>");
   }
 
+  // when another city option is selected by the user, coordinates will be updated
   $('.cityOption').click(function changeLocation(e) {
 
+    // map coordinates to be replaced
     var changeLocation = cityCoord[e.target.id];
 
     globalLat = cityCoord[e.target.id].lat;
@@ -56,6 +63,7 @@ function getNav() {
 
     replaceForecast()
 
+    // weather data coordinates to be updated
     var newWeatherLoca = globalLat + ',' + globalLng;
     url = 'https://api.darksky.net/forecast/' + key + '/' + newWeatherLoca + '?units=auto';
     getWeatherData(newWeatherLoca);
@@ -67,6 +75,7 @@ function getNav() {
   });
 };
 
+// function to initialise the map
 function initMap() {
   var styledMapType = new google.maps.StyledMapType([
        {
@@ -174,6 +183,7 @@ function initMap() {
       map.setMapTypeId('styled_map');
 }
 
+// function to use html5 geolocation services to locate the current position of the user
 function getUserLocation() {
 
   //geolocation function/if statement
@@ -186,16 +196,16 @@ function getUserLocation() {
         var crd = pos.coords;
 
 
-
+        // allowing the map to match the users location
         globalLat = crd.latitude
         globalLng = crd.longitude
 
         // forammtted to be used to retireve api with geolocation
         liveLocation = globalLat + ',' + globalLng;
 
-        //get api with new location
         getNav();
 
+        //get apis with new location
         getWeatherData(liveLocation);
 
         initMap();
@@ -206,6 +216,7 @@ function getUserLocation() {
       function error(err) {
         console.warn('ERROR (' + err.code + '):' + err.message)
 
+        // fallback coordinates to canberra
         globalLat = -35.184708
         globalLng = 149.132538
 
@@ -219,7 +230,7 @@ function getUserLocation() {
 
       }
 
-      //this is the line that prompts the user for their location
+      //prompts users location
       navigator.geolocation.getCurrentPosition(success, error);
 
       //if user location not found, show error
@@ -256,10 +267,6 @@ function getWeatherData(liveLocation){
 
         var forecast = data.daily.data[i]; //data for one day
 
-      // target ul with the class .list
-
-
-
       // display correct day according to forecast data from Dark Sky
       var day = new Date(forecast.time*1000);
 
@@ -273,19 +280,16 @@ function getWeatherData(liveLocation){
           weekday[5] = "Friday";
           weekday[6] = "Saturday";
 
+      // matching the icon to the weather data
       var dailyIcon = forecast.icon
 
-
       var dailyIconImage = '<img src="images/' + dailyIcon + '.svg" alt="' + dailyIcon + '" class="img"/>'
-
 
       // appending list items to the class .list
       row.append("<li>" + dailyIconImage + ' ' + Math.round(forecast.temperatureMax) + '&deg' + ' ' + "<span>" + weekday[day.getDay()] + "</span>" + "</li>");
 
-      // append forecast
-
-
     }
+        // append forecast, .html allows for the print to be replaced, not appended
         $('.forecast').html(row);
 
         // disable loader after map loads
