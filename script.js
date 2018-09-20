@@ -14,15 +14,12 @@ var row = $('.list');
 
 function replaceForecast() {
 
-  console.log(row)
   row.html('');
-  console.log(row)
 
 }
 
 // define coordinates for major australian cities
 function getNav() {
-  console.log('woop')
 
   var cityCoord = [
                     { city: "My Location", lat: globalLat, lng: globalLng },
@@ -230,7 +227,6 @@ function getWeatherData(liveLocation){
 
   //now go get data
   $.getJSON(url, function(data) {
-    console.log(data);
 
       //define the icon
       var icon = data.currently.icon;
@@ -288,20 +284,20 @@ function getWeatherData(liveLocation){
         $( "#loader" ).hide();
   });
 
-  // See forecast from drop down action
-    $( ".dropdown" ).click(function expandDataDisplay() {
-
-      // dynamic styling for the toggled states of .forecast
-      $( ".forecast").toggleClass( "forecast" )
-
-      // dynamic styling for the toggled states of #weather
-      $( "#weather" ).toggleClass( "expand" )
-
-      // $( "#nav" ).toggleClass( "active" )
-
-    });
-
 };
+
+// See forecast from drop down action
+  $( ".dropdown" ).click(function expandDataDisplay() {
+
+    // dynamic styling for the toggled states of .forecast
+    $( ".forecast").toggleClass( "forecast" )
+
+    // dynamic styling for the toggled states of #weather
+    $( "#weather" ).toggleClass( "expand" )
+
+    // $( "#nav" ).toggleClass( "active" )
+
+  });
 
 //startup!
 getUserLocation()

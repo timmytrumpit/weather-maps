@@ -120,6 +120,11 @@ ul {
   padding: 10px;
 }
 
+#weather .container .list li{
+  font-size: 0.9em;
+  text-align: center;
+}
+
 #weather .currently img{
   width: 36px;
   height: auto;
@@ -156,7 +161,7 @@ ul {
 #weather .dropdown .arrow {
   height: 7px;
   width: auto;
-  margin: 10px 45% 5px 45%;
+  margin: 10px 47% 5px 47%;
 }
 
 #weather .container .list {
@@ -168,7 +173,7 @@ ul {
 }
 
 #weather .container .list li {
-  height: 14%;
+  font-size: 0.9em;
   padding: 10px 0px;
   margin: 0;
   text-align: left;
@@ -192,10 +197,6 @@ ul {
   display: none;
 }
 
-.bold {
-  font-weight: bold;
-}
-
 ::-webkit-scrollbar {
   height: 15px;
 }
@@ -205,23 +206,86 @@ ul {
   border-top: 2px solid #121;
 }
 
-/* @media only screen and (max-width: 823px) {
+@media (max-width: 823px) {
+
+  #loader .lottie {
+    margin: 18vh 32vw;
+  }
 
   #weather {
     top: 0;
     right: 0;
+    height: 115px;
   }
 
   #weather h1 {
-    padding: 20px 25%;
+    font-size: 32px;
+    padding: 21px 30%;
+  }
+
+  #weather .currently img {
+    width: 28px;
+    height: auto;
   }
 
   #weather .container .list li {
     padding: 5px 0;
   }
 
+  #nav {
+    margin: 5px 0 0 0;
+  }
+
   .expand {
     height: 100% !important;
   }
 
-} */
+}
+
+@media (max-width: 415px) {
+
+  #loader .lottie {
+    margin: 30vh 13.8vw;
+  }
+
+  #weather {
+    height: 150px;
+    width: 100%;
+    font-size: 28px;
+  }
+
+  #weather .container {
+    padding: 30px;
+  }
+
+  #weather .container .list li {
+    font-size: 16px;
+    text-align: center;
+    padding: 2.5vh 0;
+  }
+
+  #weather h1{
+    font-size: 42px;
+    padding: 15px 25% 40px 25%;
+  }
+
+  #weather .currently img {
+    width: 9vw;
+    height: auto;
+  }
+
+  #nav {
+    margin: 5vh 0;
+  }
+
+  #nav li {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
+  ::-webkit-scrollbar {
+    height: 8px;
+  }
+
+
+}
