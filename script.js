@@ -12,8 +12,11 @@ var liveLocation = '-35.184708, 149.132538';
 
 var urlOriginal = 'https://api.darksky.net/forecast/' + key + '/37.8267,-122.4233';
 
+// CORS api url prefix to prevent CORS Errors, https://github.com/Rob--W/cors-anywhere
+var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+
 //this is the dark sky api call
-var url = 'https://api.darksky.net/forecast/' + key + '/' + liveLocation + '?units=auto&callback=?';
+var url = cors_api_url + 'https://api.darksky.net/forecast/' + key + '/' + liveLocation + '?units=auto&callback=?';
 
 // defining empty vars to be redefined later
 var globalLat = '';
@@ -21,6 +24,22 @@ var globalLng = '';
 
 // a class for data to be added to
 var row = $('.list');
+
+// CORS Error prevention script, https://gist.github.com/deanius/d7bec0d437bb76bf5f43d1b0fd01799a
+$.ajax({
+      url: url,
+      method: "GET",
+      dataType: "json",
+      // this headers section is necessary for CORS-anywhere
+      headers: {
+        "Access-Control-Allow-Origin": "*"
+      }
+    }).done(function(response) {
+      console.log('CORS anywhere response', response);
+    }).fail(function(jqXHR, textStatus) {
+      console.error(textStatus)
+    })
+// end CORS error prevention script
 
 // function to ensure that data is replaced when switching locations, not appended.
 function replaceForecast() {
