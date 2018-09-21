@@ -25,7 +25,8 @@ var globalLng = '';
 // a class for data to be added to
 var row = $('.list');
 
-// CORS Error prevention script, https://gist.github.com/deanius/d7bec0d437bb76bf5f43d1b0fd01799a
+// CORS Error prevention script, https://gist.github.com/deanius/d7bec0d437bb76bf5f43d1b0fd01799a0
+
 $.ajax({
 	url: url,
 	method: "GET",
@@ -82,7 +83,7 @@ function getNav() {
 
 		// weather data coordinates to be updated
 		var newWeatherLoca = globalLat + ',' + globalLng;
-		url = 'https://api.darksky.net/forecast/' + key + '/' + newWeatherLoca + '?units=auto';
+		url = cors_api_url + 'https://api.darksky.net/forecast/' + key + '/' + newWeatherLoca + '?units=auto';
 		getWeatherData(newWeatherLoca);
 		initMap();
 
